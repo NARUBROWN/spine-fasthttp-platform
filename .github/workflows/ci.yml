@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [preview]
+    tags: ['v*-preview.*']
+  pull_request:
+    branches: [preview]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  GOWORK: 'off'
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            go: '1.26.x'
+          - os: ubuntu-latest
+            go: '1.27.x'
+          - os: macos-latest
+            go: '1.26.x'
+          - os: windows-latest
+            go: '1.26.x'
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Formatting and dependency reproducibility
+        shell: bash
+        run: |
+          test -z "$(gofmt -l .)"
+          go mod tidy
+          go mod verify
+          git diff --exit-code -- go.mod go.sum
+          test -z "$(go list -m -f '{{if .Replace}}{{.Path}}{{end}}' all)"
+      - run: go vet ./...
+      - run: go test -count=1 -shuffle=on -timeout=90s ./...
+      - name: Race detector
+        if: runner.os == 'Linux'
+        run: go test -race -count=1 -shuffle=on -timeout=90s ./...
