@@ -1,0 +1,9 @@
+{
+  "schema_version": "spine.platform/v1",
+  "kind": "http",
+  "provider": "fasthttp",
+  "contract_version": "spine.http-adapter/v3",
+  "package": "platform",
+  "factory": "Option",
+  "minimum_go": "1.26.0"
+}

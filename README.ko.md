@@ -6,11 +6,19 @@ Spine 앱을 fasthttp의 HTTP/1.1 서버에서 실행합니다. HTTP 계약 `spi
 
 ## Preview 설치
 
-Go 1.26.0 이상이 필요합니다. 첫 프리뷰는 Spine `v0.7.6-preview.1`과 fasthttp `v1.79.0`을 사용합니다.
+Go 1.26.0 이상이 필요합니다. 이 프리뷰는 Spine `v0.7.6-preview.1`과 fasthttp `v1.79.0`을 사용합니다.
 
 ```sh
-go get github.com/NARUBROWN/spine-fasthttp-platform@v0.1.0-preview.1
+go get github.com/NARUBROWN/spine-fasthttp-platform@v0.1.0-preview.2
 ```
+
+Spine CLI에서는 다음 명령으로 프로젝트를 생성합니다.
+
+```sh
+spine new fast-api --platform fasthttp --channel preview --no-interactive
+```
+
+`spine-platform.json`은 CLI에 HTTP v3 계약, `Option` 생성 함수와 Go 1.26.0 요구사항을 제공합니다.
 
 ## 앱 구성
 

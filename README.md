@@ -6,11 +6,19 @@ Run Spine applications on fasthttp's HTTP/1.1 server. Implements the `spine.http
 
 ## Preview installation
 
-Requires Go 1.26.0 or later. The first preview uses Spine `v0.7.6-preview.1` and fasthttp `v1.79.0`.
+Requires Go 1.26.0 or later. This preview uses Spine `v0.7.6-preview.1` and fasthttp `v1.79.0`.
 
 ```sh
-go get github.com/NARUBROWN/spine-fasthttp-platform@v0.1.0-preview.1
+go get github.com/NARUBROWN/spine-fasthttp-platform@v0.1.0-preview.2
 ```
+
+Generate a project with Spine CLI:
+
+```sh
+spine new fast-api --platform fasthttp --channel preview --no-interactive
+```
+
+`spine-platform.json` declares the HTTP v3 contract, the `Option` factory, and the minimum Go version for CLI generation.
 
 ## Application setup
 
